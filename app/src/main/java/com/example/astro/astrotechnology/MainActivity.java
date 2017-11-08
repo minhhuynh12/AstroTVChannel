@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.View;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -55,6 +56,12 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onResponse(Response<MainItems> response, Retrofit retrofit) {
                 mAdapter.setData(response.body().getChannels());
+                mAdapter.setOnItemClickListener(new MainAdapter.ClickListener() {
+                    @Override
+                    public void onItemClick(int position, View view) {
+                        Toast.makeText(view.getContext() , "onlick" , Toast.LENGTH_SHORT ).show();
+                    }
+                });
             }
 
             @Override

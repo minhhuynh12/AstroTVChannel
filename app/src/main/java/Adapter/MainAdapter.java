@@ -23,6 +23,8 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.ViewHolder> {
     List<ChannelItems> list;
     String responseMessage , responseCode;
     Context context;
+    private static ClickListener clickListener;
+
 //    public MainAdapter(List<MainItems> itemses){
 //        list = itemses;
 //    }
@@ -61,14 +63,28 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.ViewHolder> {
         return list.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         TextView tvchannelIdMain, tvChannelTitleMain, tvChannelNumberMain;
 
         public ViewHolder(View itemView) {
             super(itemView);
+            itemView.setOnClickListener(this);
             tvchannelIdMain = itemView.findViewById(R.id.tvchannelIdMain);
             tvChannelTitleMain = itemView.findViewById(R.id.tvChannelTitleMain);
 
         }
+
+        @Override
+        public void onClick(View v) {
+            clickListener.onItemClick(getAdapterPosition(), v);
+        }
+    }
+
+    public void setOnItemClickListener(ClickListener clickListener) {
+        MainAdapter.clickListener = clickListener;
+    }
+
+    public interface ClickListener{
+        void onItemClick (int position , View view);
     }
 }
