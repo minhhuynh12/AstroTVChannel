@@ -1,5 +1,7 @@
 package com.example.astro.astrotechnology;
 
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -59,7 +61,9 @@ public class MainActivity extends AppCompatActivity {
                 mAdapter.setOnItemClickListener(new MainAdapter.ClickListener() {
                     @Override
                     public void onItemClick(int position, View view) {
-                        Toast.makeText(view.getContext() , "onlick" , Toast.LENGTH_SHORT ).show();
+                        FragmentManager fragmentManager = getSupportFragmentManager();
+                        fragmentManager.beginTransaction().replace(R.id.recycMain , new Fragment.DetailChannelFragment().commit();
+
                     }
                 });
             }
