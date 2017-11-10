@@ -12,10 +12,13 @@ import android.view.View;
 import android.widget.FrameLayout;
 
 import Adapter.MainAdapter;
+import Model.ChannelItems;
 import Model.MainItems;
 import Remote.MainService;
 import Remote.MainUtils;
+
 import com.example.astro.astrotechnology.fragments.DetailChannelFragment;
+
 import retrofit.Callback;
 import retrofit.Response;
 import retrofit.Retrofit;
@@ -54,25 +57,30 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    //get all channel
     private void LoadApi() {
-        Log.d("connect load api" , "aaaaaaaa");
+        Log.d("connect load api", "aaaaaaaa");
         mService = MainUtils.getServiceMain();
         mService.getMainListChannel().enqueue(new Callback<MainItems>() {
             @Override
             public void onResponse(Response<MainItems> response, Retrofit retrofit) {
                 mAdapter.setData(response.body().getChannels());
+
                 mAdapter.setOnItemClickListener(new MainAdapter.ClickListener() {
                     @Override
-                    public void onItemClick(int position, View view) {
+                    public void onItemClick(int position, View view ) {
                         recycMain.setVisibility(view.GONE);
                         frameFragment.setVisibility(view.VISIBLE);
-                    frag = new DetailChannelFragment();
+
+                        ChannelItems item = mAdapter.getData(position);
+                        Bundle bundle = new Bundle();
+                        bundle.putString("channelId" , item.getChannelId());
+
+                        frag = new DetailChannelFragment();
+                        frag.setArguments(bundle);
                         fragmentTransaction = getSupportFragmentManager().beginTransaction();
-                        fragmentTransaction.replace(R.id.frameFragment , frag);
+                        fragmentTransaction.replace(R.id.frameFragment, frag);
                         fragmentTransaction.commit();
-
-
-
                     }
                 });
             }

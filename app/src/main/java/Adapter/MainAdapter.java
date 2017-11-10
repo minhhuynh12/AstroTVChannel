@@ -43,6 +43,11 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.ViewHolder> {
         notifyDataSetChanged();
     }
 
+    public ChannelItems getData(int position){
+        return  list.get(position);
+    }
+
+
 
 
     @Override
