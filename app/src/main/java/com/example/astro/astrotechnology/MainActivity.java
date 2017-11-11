@@ -59,7 +59,7 @@ public class MainActivity extends AppCompatActivity {
 
     //get all channel
     private void LoadApi() {
-        Log.d("connect load api", "aaaaaaaa");
+
         mService = MainUtils.getServiceMain();
         mService.getMainListChannel().enqueue(new Callback<MainItems>() {
             @Override
