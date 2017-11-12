@@ -16,14 +16,17 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 import Adapter.DetailChannelAdapter;
 import Model.DetailChannelItems;
+import Model.GetEventItems;
 import Remote.MainService;
 import Remote.MainUtils;
-import retrofit.Callback;
-import retrofit.Response;
-import retrofit.Retrofit;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
 
 /**
  * Created by imac on 11/9/17.
@@ -31,7 +34,7 @@ import retrofit.Retrofit;
 
 public class DetailChannelFragment extends Fragment {
 
-    SimpleDateFormat DesiredFormat = new SimpleDateFormat("yyyy-dd-MM");
+    SimpleDateFormat DesiredFormat = new SimpleDateFormat("yyyy-MM-dd");
     RecyclerView recycDetailChannel;
     MainService mService;
     DetailChannelAdapter mAdapter;
@@ -46,15 +49,19 @@ public class DetailChannelFragment extends Fragment {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         recycDetailChannel.setLayoutManager(linearLayoutManager);
-        mAdapter = new DetailChannelAdapter();
+        mAdapter = new DetailChannelAdapter(getContext());
         recycDetailChannel.setAdapter(mAdapter);
 
         //get channelId
         Bundle bundle = this.getArguments();
         if (bundle != null) {
             String chennalId = bundle.getString("channelId");
-            ArrayList<String> list = new ArrayList<>();
-            list.add(chennalId);
+            String newChennalId = "[" + chennalId + "]";
+//            List<String> list = new ArrayList<>();
+//            list.add(chennalId);
+//            list.add(chennalId);
+            //list[0] = chennalId;
+
 
             //current time
             Date currentTime = Calendar.getInstance().getTime();
@@ -66,25 +73,37 @@ public class DetailChannelFragment extends Fragment {
             calendar.add(Calendar.DAY_OF_YEAR, +1);
             Date newDate = calendar.getTime();
             String formattedDate = DesiredFormat.format(newDate.getTime());
-            LoadApiDetailChannel(list, currentDate , formattedDate );
+            LoadApiDetailChannel(newChennalId, currentDate, formattedDate);
         }
-            return view;
-        }
+        return view;
+    }
 
 
-
-    private void LoadApiDetailChannel(ArrayList<String> channelID , String periodStart , String periodEnd ) {
+    private void LoadApiDetailChannel(String channelID, String periodStart, String periodEnd) {
         mService = MainUtils.getServiceMain();
-        mService.getDetailChannel(channelID , periodStart , periodEnd).enqueue(new Callback<DetailChannelItems>() {
+        mService.getDetailChannel(channelID, periodStart, periodEnd).enqueue(new Callback<DetailChannelItems>() {
             @Override
-            public void onResponse(Response<DetailChannelItems> response, Retrofit retrofit) {
+            public void onResponse(Call<DetailChannelItems> call, Response<DetailChannelItems> response) {
                 mAdapter.setData(response.body().getGetEvent());
             }
 
             @Override
-            public void onFailure(Throwable t) {
-                Log.d("fail" , "cannal " );
+            public void onFailure(Call<DetailChannelItems> call, Throwable t) {
+
             }
         });
+//        {
+//            @Override
+//            public void onResponse(Call<DetailChannelItems> call, Response<DetailChannelItems> response) {
+//                mAdapter.setData(response.body().getGetEvent());
+//            }
+//
+//            @Override
+//            public void onFailure(Call<DetailChannelItems> call, Throwable t) {
+//                Log.d("fail" , "cannal " );
+//            }
+
+
+//        });
     }
 }

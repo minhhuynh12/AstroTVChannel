@@ -1,5 +1,7 @@
 package Model;
 
+import com.google.gson.annotations.SerializedName;
+
 import java.util.List;
 
 /**
@@ -7,13 +9,14 @@ import java.util.List;
  */
 
 public class DetailChannelItems  {
-    private List<GetEventItems> getEvent;
+
+    private List<GetEventItems> getevent;
 
     public List<GetEventItems> getGetEvent() {
-        return getEvent;
+        return getevent;
     }
 
     public void setGetEvent(List<GetEventItems> getEvent) {
-        this.getEvent = getEvent;
+        this.getevent = getEvent;
     }
 }

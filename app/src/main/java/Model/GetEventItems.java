@@ -6,10 +6,19 @@ package Model;
 
 public class GetEventItems {
     private String channelTitle;
-    private String disPlayDatetimeUTC;
-    private String disPlayDatetime;
-    private String programeTitle;
+    private String displayDateTimeUtc;
+    private String displayDateTime;
+    private String programmeTitle;
     private String shortSynopsis;
+    private String epgEventImage;
+
+    public String getEpgEventImage() {
+        return epgEventImage;
+    }
+
+    public void setEpgEventImage(String epgEventImage) {
+        this.epgEventImage = epgEventImage;
+    }
 
     public String getChannelTitle() {
         return channelTitle;
@@ -19,28 +28,28 @@ public class GetEventItems {
         this.channelTitle = channelTitle;
     }
 
-    public String getDisPlayDatetimeUTC() {
-        return disPlayDatetimeUTC;
+    public String getDisplayDateTimeUtc() {
+        return displayDateTimeUtc;
     }
 
-    public void setDisPlayDatetimeUTC(String disPlayDatetimeUTC) {
-        this.disPlayDatetimeUTC = disPlayDatetimeUTC;
+    public void setDisplayDateTimeUtc(String displayDateTimeUtc) {
+        this.displayDateTimeUtc = displayDateTimeUtc;
     }
 
-    public String getDisPlayDatetime() {
-        return disPlayDatetime;
+    public String getDisplayDateTime() {
+        return displayDateTime;
     }
 
-    public void setDisPlayDatetime(String disPlayDatetime) {
-        this.disPlayDatetime = disPlayDatetime;
+    public void setDisplayDateTime(String displayDateTime) {
+        this.displayDateTime = displayDateTime;
     }
 
-    public String getProgrameTitle() {
-        return programeTitle;
+    public String getProgrammeTitle() {
+        return programmeTitle;
     }
 
-    public void setProgrameTitle(String programeTitle) {
-        this.programeTitle = programeTitle;
+    public void setProgrammeTitle(String programmeTitle) {
+        this.programmeTitle = programmeTitle;
     }
 
     public String getShortSynopsis() {

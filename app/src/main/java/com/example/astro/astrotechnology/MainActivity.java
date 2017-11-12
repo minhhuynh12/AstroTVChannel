@@ -19,9 +19,10 @@ import Remote.MainUtils;
 
 import com.example.astro.astrotechnology.fragments.DetailChannelFragment;
 
-import retrofit.Callback;
-import retrofit.Response;
-import retrofit.Retrofit;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
 
 public class MainActivity extends AppCompatActivity {
     RecyclerView recycMain;
@@ -63,7 +64,7 @@ public class MainActivity extends AppCompatActivity {
         mService = MainUtils.getServiceMain();
         mService.getMainListChannel().enqueue(new Callback<MainItems>() {
             @Override
-            public void onResponse(Response<MainItems> response, Retrofit retrofit) {
+            public void onResponse(Call<MainItems> call, Response<MainItems> response) {
                 mAdapter.setData(response.body().getChannels());
 
                 mAdapter.setOnItemClickListener(new MainAdapter.ClickListener() {
@@ -86,9 +87,11 @@ public class MainActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onFailure(Throwable t) {
+            public void onFailure(Call<MainItems> call, Throwable t) {
 
             }
+
+
         });
 
     }
