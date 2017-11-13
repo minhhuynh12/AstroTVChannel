@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:layout_width="0dp"
+        android:layout_height="@dimen/size_recyclerview"
+        android:background="@color/black"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="0dp"
+        android:layout_marginLeft="0dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginRight="0dp"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintHorizontal_bias="0.0">
+        <FrameLayout
+            android:id="@+id/frameImgBackSearch"
+            android:layout_width="@dimen/size_recyclerview"
+            android:layout_height="@dimen/size_recyclerview"
+            android:layout_centerVertical="true">
+            <ImageView
+                android:layout_width="@dimen/size_image"
+                android:layout_height="@dimen/size_image"
+                android:src="@drawable/img_back"
+                android:layout_gravity="center"/>
+        </FrameLayout>
+        <ImageView
+            android:id="@+id/imgSearchChannel"
+            android:layout_width="@dimen/size_recyclerview"
+            android:layout_height="@dimen/size_recyclerview"
+            android:layout_toRightOf="@+id/frameImgBackSearch"
+            android:background="@drawable/search"/>
+        <EditText
+            android:id="@+id/editSearchChannel"
+            android:layout_toRightOf="@+id/imgSearchChannel"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:hint="Press key words"
+            android:textColorHint="@color/white"/>
+    </RelativeLayout>
+</android.support.constraint.ConstraintLayout>

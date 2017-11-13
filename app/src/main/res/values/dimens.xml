@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <dimen name="left_margin_normal">16dp</dimen>
+    <dimen name="left_margin_small">8dp</dimen>
     <dimen name="size_image">30dp</dimen>
     <dimen name="size_textView">200dp</dimen>
     <dimen name="size_recyclerview">50dp</dimen>

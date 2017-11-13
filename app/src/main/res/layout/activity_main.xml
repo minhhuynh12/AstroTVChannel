@@ -28,9 +28,10 @@
             android:src="@drawable/astro"
             android:background="@color/black"/>
         <ImageView
-            android:layout_width="@dimen/size_image"
-            android:layout_height="@dimen/size_image"
-            android:src="@drawable/search"
+            android:id="@+id/imgSearchMain"
+            android:layout_width="@dimen/size_recyclerview"
+            android:layout_height="@dimen/size_recyclerview"
+            android:background="@drawable/search"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:layout_marginRight="@dimen/left_margin_normal"/>

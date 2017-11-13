@@ -1,5 +1,6 @@
 package com.example.astro.astrotechnology;
 
+import android.content.Intent;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
@@ -10,6 +11,7 @@ import android.support.v7.widget.SimpleItemAnimator;
 import android.util.Log;
 import android.view.View;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 
 import Adapter.MainAdapter;
 import Model.ChannelItems;
@@ -26,12 +28,12 @@ import retrofit2.Retrofit;
 
 public class MainActivity extends AppCompatActivity {
     RecyclerView recycMain;
+    ImageView imgSearchMain;
     FrameLayout frameFragment;
     MainAdapter mAdapter;
     MainService mService;
     Fragment frag;
     FragmentTransaction fragmentTransaction;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,14 +41,14 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         recycMain = (RecyclerView) findViewById(R.id.recycMain);
         frameFragment = (FrameLayout) findViewById(R.id.frameFragment);
+        imgSearchMain = (ImageView) findViewById(R.id.imgSearchMain);
 
-
-//        ArrayList<MainItems> itemses = new ArrayList<>();
-//        itemses.add(new MainItems("minh","huynh","cong"));
-//        itemses.add(new MainItems("minh","huynh","cong"));
-//        itemses.add(new MainItems("minh","huynh","cong"));
-//        itemses.add(new MainItems("minh","huynh","cong"));
-
+        imgSearchMain.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MainActivity.this , SearchChannelActivity.class));
+            }
+        });
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
@@ -60,7 +62,6 @@ public class MainActivity extends AppCompatActivity {
 
     //get all channel
     private void LoadApi() {
-
         mService = MainUtils.getServiceMain();
         mService.getMainListChannel().enqueue(new Callback<MainItems>() {
             @Override
