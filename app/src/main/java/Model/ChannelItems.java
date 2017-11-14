@@ -1,10 +1,12 @@
 package Model;
 
+import java.io.Serializable;
+
 /**
  * Created by vitinhHienAnh on 07-11-17.
  */
 
-public class ChannelItems {
+public class ChannelItems implements Serializable{
     private String channelId;
     private String channelTitle;
     private String channelStbNumber;

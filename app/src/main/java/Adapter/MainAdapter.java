@@ -20,7 +20,7 @@ import Model.MainItems;
  */
 
 public class MainAdapter extends RecyclerView.Adapter<MainAdapter.ViewHolder> {
-    List<ChannelItems> list;
+    public List<ChannelItems> list;
     String responseMessage , responseCode;
     Context context;
     private static ClickListener clickListener;

@@ -16,7 +16,8 @@
         app:layout_constraintLeft_toLeftOf="parent"
         android:layout_marginRight="0dp"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintHorizontal_bias="0.0">
+        app:layout_constraintHorizontal_bias="0.0"
+        android:id="@+id/relativeLayout2">
         <FrameLayout
             android:id="@+id/frameImgBackSearch"
             android:layout_width="@dimen/size_recyclerview"
@@ -40,6 +41,23 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:hint="Press key words"
+            android:textColor="@color/white"
+            android:singleLine="true"
             android:textColorHint="@color/white"/>
     </RelativeLayout>
+
+    <TextView
+        android:id="@+id/tvShowChannel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="TextView"
+        android:textColor="@color/white"
+        android:layout_marginTop="8dp"
+        app:layout_constraintTop_toBottomOf="@+id/relativeLayout2"
+        android:layout_marginLeft="8dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginRight="8dp"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginBottom="8dp" />
 </android.support.constraint.ConstraintLayout>
