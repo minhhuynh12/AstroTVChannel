@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import Model.DetailChannelItems;
+import Model.EventSearchChannelItems;
+import Model.FieldsSearchChannelItems;
 import Model.GetEventItems;
 import Model.MainItems;
 import retrofit2.Call;
@@ -23,6 +25,7 @@ public interface MainService  {
             , @Query("periodStart") String periodStart
             , @Query("periodEnd") String periodEnd);
 
-
+    @GET("ams/v3/searchEvents")
+    Call<EventSearchChannelItems> getDataSearch(@Query("keyword") String keyword);
 
 }
