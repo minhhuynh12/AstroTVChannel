@@ -9,7 +9,7 @@ import java.util.List;
  */
 
 public class DetailChannelItems  {
-
+    @SerializedName("getevent")
     private List<GetEventItems> getevent;
 
     public List<GetEventItems> getGetEvent() {

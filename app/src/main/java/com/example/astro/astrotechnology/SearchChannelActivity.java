@@ -18,8 +18,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.List;
+import java.util.Objects;
 
+import Model.ChannelItems;
 import Model.Sample;
+
+import static android.R.attr.data;
 
 /**
  * Created by vitinhHienAnh on 13-11-17.
@@ -27,17 +31,22 @@ import Model.Sample;
 
 public class SearchChannelActivity extends AppCompatActivity {
     EditText editSearchChannel;
+    TextView tvShowChannel;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
-        EditText editSearchChannel;
+        final EditText editSearchChannel;
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search_channel);
         editSearchChannel = (EditText) findViewById(R.id.editSearchChannel);
+        tvShowChannel = (TextView) findViewById(R.id.tvShowChannel);
         Intent intent = this.getIntent();
 
-        Bundle bundle = intent.getBundleExtra("en");
+        final Bundle bundle = intent.getBundleExtra("en");
         intent.putExtras(bundle);
+
+        Sample thumbs= (Sample)bundle.getSerializable("values");
+        Log.d("ddddd" , "values " + thumbs.getList().toString());
 
         editSearchChannel.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
@@ -45,22 +54,29 @@ public class SearchChannelActivity extends AppCompatActivity {
                 String input;
                 if(actionId == EditorInfo.IME_ACTION_DONE)
                 {
-                    input= v.getText().toString();
-                    Toast toast= Toast.makeText(SearchChannelActivity.this,input,
-                            Toast.LENGTH_LONG);
-                    toast.setGravity(Gravity.CENTER, 0, 0);
-                    toast.show();
+                    if(bundle != null){
+                        Sample thumbs= (Sample)bundle.getSerializable("values");
+                        for (ChannelItems s : thumbs.getList()) {
+                            Log.d("aaaaaaa" , "values " + editSearchChannel.getText().toString());
+                            if(editSearchChannel.getText().toString().equals(s.getChannelTitle())){
+                                tvShowChannel.setText(s.getChannelTitle());
+                            }
+
+                        }
+
+                    }
+
+//                    input= v.getText().toString();
+//                    Toast toast= Toast.makeText(SearchChannelActivity.this,input,
+//                            Toast.LENGTH_LONG);
+//                    toast.setGravity(Gravity.CENTER, 0, 0);
+//                    toast.show();
                     return true;
                 }
                 return false;
             }
         });
 
-        if(bundle != null){
-            Sample thumbs= (Sample)bundle.getSerializable("values");
-//            for();
-
-        }
 
         editSearchChannel.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override

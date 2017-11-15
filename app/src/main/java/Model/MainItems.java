@@ -1,5 +1,7 @@
 package Model;
 
+import com.google.gson.annotations.SerializedName;
+
 import java.util.List;
 
 /**
@@ -9,6 +11,7 @@ import java.util.List;
 public class MainItems {
     private String responseMessage;
     private String responseCode;
+    @SerializedName("channels")
     private List<ChannelItems> channels;
 
     public String getResponseMessage() {
@@ -32,6 +35,10 @@ public class MainItems {
     }
 
     public void setChannels(List<ChannelItems> channels) {
+        this.channels = channels;
+    }
+
+    public MainItems(List<ChannelItems> channels) {
         this.channels = channels;
     }
 }

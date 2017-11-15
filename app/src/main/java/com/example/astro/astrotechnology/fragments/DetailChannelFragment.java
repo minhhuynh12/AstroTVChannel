@@ -92,18 +92,6 @@ public class DetailChannelFragment extends Fragment {
 
             }
         });
-//        {
-//            @Override
-//            public void onResponse(Call<DetailChannelItems> call, Response<DetailChannelItems> response) {
-//                mAdapter.setData(response.body().getGetEvent());
-//            }
-//
-//            @Override
-//            public void onFailure(Call<DetailChannelItems> call, Throwable t) {
-//                Log.d("fail" , "cannal " );
-//            }
 
-
-//        });
     }
 }

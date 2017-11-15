@@ -34,4 +34,6 @@ public class ChannelItems implements Serializable{
     public void setChannelStbNumber(String channelStbNumber) {
         this.channelStbNumber = channelStbNumber;
     }
+
+
 }
