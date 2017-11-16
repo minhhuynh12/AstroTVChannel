@@ -16,6 +16,7 @@ import android.view.WindowManager;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
+import android.widget.FrameLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -44,6 +45,8 @@ public class SearchChannelActivity extends AppCompatActivity {
     RecyclerView recycSearchChannel;
     SearchChannelAdapter mAdapter;
     MainService mService;
+    TextView tvNotifiSearchChannel;
+    FrameLayout frameImgBackSearch;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -54,20 +57,20 @@ public class SearchChannelActivity extends AppCompatActivity {
         editSearchChannel = (EditText) findViewById(R.id.editSearchChannel);
 
         recycSearchChannel = (RecyclerView) findViewById(R.id.recycSearchChannel);
+        tvNotifiSearchChannel = (TextView) findViewById(R.id.tvNotifiSearchChannel);
+        frameImgBackSearch = (FrameLayout) findViewById(R.id.frameImgBackSearch);
         Intent intent = this.getIntent();
 
         final Bundle bundle = intent.getBundleExtra("en");
         intent.putExtras(bundle);
 
-        Sample thumbs= (Sample)bundle.getSerializable("values");
+        Sample thumbs = (Sample) bundle.getSerializable("values");
 
 
         editSearchChannel.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-                String input;
-                if(actionId == EditorInfo.IME_ACTION_DONE)
-                {
+                if (actionId == EditorInfo.IME_ACTION_DONE) {
                     recycSearchChannel.setVisibility(View.VISIBLE);
                     //recyclerView search channel
                     LinearLayoutManager linearLayoutManager = new LinearLayoutManager(SearchChannelActivity.this);
@@ -78,7 +81,7 @@ public class SearchChannelActivity extends AppCompatActivity {
 
                     loadApi(editSearchChannel.getText().toString());
 
-
+                    hideKeyboard();
 
 
                     //Search to bundle
@@ -100,22 +103,34 @@ public class SearchChannelActivity extends AppCompatActivity {
                 }
                 return false;
             }
+
         });
 
+        frameImgBackSearch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                SearchChannelActivity.super.onBackPressed();
+            }
+        });
 
         editSearchChannel.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
-                if(!hasFocus){
+                if (!hasFocus) {
 
-                    hideKeyboard(SearchChannelActivity.this);
-                }else {
+                    hideKeyboardonFocusChange(SearchChannelActivity.this);
+                } else {
                     showKeyboard(SearchChannelActivity.this);
+
                 }
             }
         });
 
+    }
 
+    private void hideKeyboard() {
+        InputMethodManager imm = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
+        imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
     }
 
     private void loadApi(String keyWord) {
@@ -126,6 +141,12 @@ public class SearchChannelActivity extends AppCompatActivity {
                 for (int i = 0; i < response.body().getEvents().size(); i++) {
                     mAdapter.setData(response.body().getEvents().get(i).getFields());
                 }
+                if (response.body().getEvents().isEmpty()) {
+                    tvNotifiSearchChannel.setVisibility(View.VISIBLE);
+                    tvNotifiSearchChannel.setText("Cannot find channel.");
+                } else {
+                    tvNotifiSearchChannel.setVisibility(View.GONE);
+                }
 
             }
 
@@ -133,23 +154,23 @@ public class SearchChannelActivity extends AppCompatActivity {
             public void onFailure(Call<EventSearchChannelItems> call, Throwable t) {
 
             }
-
         });
     }
 
 
-
     private void showKeyboard(Activity activity) {
-        if(activity != null){
+        if (activity != null) {
             activity.getWindow()
                     .setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
         }
     }
 
-    private void hideKeyboard(Activity activity) {
+    private void hideKeyboardonFocusChange(Activity activity) {
         if (activity != null) {
             activity.getWindow()
                     .setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
         }
     }
+
+
 }

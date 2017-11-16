@@ -5,5 +5,6 @@
     <dimen name="size_image">30dp</dimen>
     <dimen name="size_textView">200dp</dimen>
     <dimen name="size_recyclerview">50dp</dimen>
+    <dimen name="size_textview_small">150dp</dimen>
 
 </resources>
