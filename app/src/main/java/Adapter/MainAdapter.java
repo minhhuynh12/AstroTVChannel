@@ -1,10 +1,13 @@
 package Adapter;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.astro.astrotechnology.R;
@@ -12,8 +15,8 @@ import com.example.astro.astrotechnology.R;
 import java.util.ArrayList;
 import java.util.List;
 
+import Model.ChannelFavorite;
 import Model.ChannelItems;
-import Model.MainItems;
 
 /**
  * Created by vitinhHienAnh on 05-11-17.
@@ -21,7 +24,13 @@ import Model.MainItems;
 
 public class MainAdapter extends RecyclerView.Adapter<MainAdapter.ViewHolder> {
     public List<ChannelItems> list;
-    String responseMessage , responseCode;
+    public List<ChannelFavorite> listFavorite;
+
+    public static final String MyPREFERENCES = "MyPrefs";
+    public static final String ChannelTitle = "ChannelTitle";
+    public static final String ChannelNumber = "ChannelNumber";
+    SharedPreferences sharedpreferences;
+    String responseMessage, responseCode;
     Context context;
     private static ClickListener clickListener;
 
@@ -31,23 +40,24 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.ViewHolder> {
 
     public MainAdapter() {
         list = new ArrayList<>();
+
+        listFavorite = new ArrayList<>();
     }
 
     public void setData(List<ChannelItems> list) {
         this.list = list;
         notifyDataSetChanged();
     }
-    public void setString(String responseCo , String responseMe){
+
+    public void setString(String responseCo, String responseMe) {
         responseMessage = responseMe;
         responseCode = responseCo;
         notifyDataSetChanged();
     }
 
-    public ChannelItems getData(int position){
-        return  list.get(position);
+    public ChannelItems getData(int position) {
+        return list.get(position);
     }
-
-
 
 
     @Override
@@ -57,9 +67,49 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.ViewHolder> {
     }
 
     @Override
-    public void onBindViewHolder(MainAdapter.ViewHolder holder, int position) {
+    public void onBindViewHolder(final MainAdapter.ViewHolder holder, final int position) {
+        final ChannelItems item = list.get(position);
+
         holder.tvchannelIdMain.setText(list.get(position).getChannelTitle());
         holder.tvChannelTitleMain.setText(list.get(position).getChannelStbNumber());
+
+        ChannelFavorite channelFavorite = new ChannelFavorite(item.getChannelId());
+
+        for (ChannelFavorite channelFavorite_ : listFavorite) {
+            Log.d("bbbbbb" , "value: " + listFavorite);
+            if (channelFavorite_.channelId.equals(item.getChannelId()) == true) {
+                channelFavorite = channelFavorite_;
+                break;
+            }
+        }
+
+        if (channelFavorite.isFavorite == true) {
+            holder.imgLikeMain.setImageResource(R.drawable.img_liked);
+        } else {
+            holder.imgLikeMain.setImageResource(R.drawable.img_like);
+        }
+
+        holder.imgLikeMain.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                int index = indexInListFavorite(item.getChannelId());
+                Log.d("aaaaaaa" , "value: " + index);
+                if (index > -1) {
+                    listFavorite.get(index).isFavorite = !listFavorite.get(index).isFavorite;
+                } else {
+                    ChannelFavorite favorite = new ChannelFavorite(item.getChannelId());
+                    favorite.isFavorite = true;
+                    listFavorite.add(favorite);
+                }
+                // save to shared preference
+
+
+                notifyItemChanged(position);
+
+            }
+        });
+
         //holder.tvChannelNumberMain.setText(responseCodeRecyc);
     }
 
@@ -70,18 +120,21 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.ViewHolder> {
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         TextView tvchannelIdMain, tvChannelTitleMain, tvChannelNumberMain;
+        ImageView imgLikeMain;
 
         public ViewHolder(View itemView) {
             super(itemView);
             itemView.setOnClickListener(this);
             tvchannelIdMain = itemView.findViewById(R.id.tvchannelIdMain);
             tvChannelTitleMain = itemView.findViewById(R.id.tvChannelTitleMain);
+            imgLikeMain = itemView.findViewById(R.id.imgLikeMain);
 
         }
 
         @Override
         public void onClick(View v) {
             clickListener.onItemClick(getAdapterPosition(), v);
+            clickListener.onImgClick(getAdapterPosition(), v);
         }
     }
 
@@ -89,7 +142,20 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.ViewHolder> {
         MainAdapter.clickListener = clickListener;
     }
 
-    public interface ClickListener{
-        void onItemClick (int position , View view);
+    private int indexInListFavorite(String channelId) {
+        for (int i = 0; i < listFavorite.size(); i++) {
+            if (listFavorite.get(i).channelId.equals(channelId) == true) {
+                return i;
+            }
+        }
+        return -1;
     }
+
+    public interface ClickListener {
+        void onItemClick(int position, View view);
+
+        void onImgClick(int postion, View view);
+    }
+
+
 }

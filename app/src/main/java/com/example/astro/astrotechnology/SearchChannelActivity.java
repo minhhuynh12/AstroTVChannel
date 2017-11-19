@@ -95,7 +95,7 @@ public class SearchChannelActivity extends AppCompatActivity {
 //                            }
 //
 //                        }
-//
+
 //                    }
 
 
