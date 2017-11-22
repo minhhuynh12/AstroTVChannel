@@ -1,5 +1,6 @@
 package Adapter;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.support.v7.widget.RecyclerView;
@@ -11,6 +12,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.astro.astrotechnology.R;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,6 +32,7 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.ViewHolder> {
     public static final String MyPREFERENCES = "MyPrefs";
     public static final String ChannelTitle = "ChannelTitle";
     public static final String ChannelNumber = "ChannelNumber";
+    public static final String ChannelID = "ChannelID";
     SharedPreferences sharedpreferences;
     String responseMessage, responseCode;
     Context context;
@@ -38,10 +42,19 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.ViewHolder> {
 //        list = itemses;
 //    }
 
-    public MainAdapter() {
+    public MainAdapter(Activity activity) {
         list = new ArrayList<>();
 
         listFavorite = new ArrayList<>();
+
+        //get shared Preference
+        sharedpreferences = activity.getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
+
+        Gson gson = new Gson();
+        String json = sharedpreferences.getString("ChannelID", "");
+        listFavorite = gson.fromJson(json, new TypeToken<ArrayList<ChannelFavorite>>() {}.getType());
+
+
     }
 
     public void setData(List<ChannelItems> list) {
@@ -76,7 +89,7 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.ViewHolder> {
         ChannelFavorite channelFavorite = new ChannelFavorite(item.getChannelId());
 
         for (ChannelFavorite channelFavorite_ : listFavorite) {
-            Log.d("bbbbbb" , "value: " + listFavorite);
+            Log.d("bbbbbb", "value: " + listFavorite);
             if (channelFavorite_.channelId.equals(item.getChannelId()) == true) {
                 channelFavorite = channelFavorite_;
                 break;
@@ -89,20 +102,28 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.ViewHolder> {
             holder.imgLikeMain.setImageResource(R.drawable.img_like);
         }
 
+
         holder.imgLikeMain.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
                 int index = indexInListFavorite(item.getChannelId());
-                Log.d("aaaaaaa" , "value: " + index);
+                Log.d("aaaaaaa", "value: " + index);
                 if (index > -1) {
                     listFavorite.get(index).isFavorite = !listFavorite.get(index).isFavorite;
                 } else {
                     ChannelFavorite favorite = new ChannelFavorite(item.getChannelId());
                     favorite.isFavorite = true;
                     listFavorite.add(favorite);
+
                 }
                 // save to shared preference
+                Gson gson = new Gson();
+                String json = gson.toJson(listFavorite);
+
+                SharedPreferences.Editor editor = sharedpreferences.edit();
+                editor.putString(ChannelID, json);
+                editor.commit();
 
 
                 notifyItemChanged(position);
@@ -134,7 +155,7 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.ViewHolder> {
         @Override
         public void onClick(View v) {
             clickListener.onItemClick(getAdapterPosition(), v);
-            clickListener.onImgClick(getAdapterPosition(), v);
+
         }
     }
 
@@ -154,7 +175,6 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.ViewHolder> {
     public interface ClickListener {
         void onItemClick(int position, View view);
 
-        void onImgClick(int postion, View view);
     }
 
 

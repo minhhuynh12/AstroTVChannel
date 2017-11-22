@@ -29,17 +29,17 @@ import retrofit2.Response;
 
 public class MainActivity extends AppCompatActivity {
     RecyclerView recycMain;
-    ImageView imgSearchMain, imgLikeMain;
+    ImageView imgSearchMain, imgLikeMain , imgShowBar;
     FrameLayout frameFragment;
     MainAdapter mAdapter;
     MainService mService;
     Fragment frag;
     FragmentManager manager;
     FragmentTransaction fragmentTransaction;
-    private boolean toggle = false;
+
     private static final String BACK_STACK_ROOT_TAG = "DetailChannelFragment";
     SharedPreferences sharedpreferences;
-    public static final String MyPREFERENCES = "MyPrefs" ;
+    public static final String MyPREFERENCES = "MyPrefs";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,21 +49,17 @@ public class MainActivity extends AppCompatActivity {
         frameFragment = (FrameLayout) findViewById(R.id.frameFragment);
         imgSearchMain = (ImageView) findViewById(R.id.imgSearchMain);
         imgLikeMain = (ImageView) findViewById(R.id.imgLikeMain);
+        imgShowBar = (ImageView) findViewById(R.id.imgShowBar);
 
         sharedpreferences = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
 
-
-//        imgLikeMain.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-////                if(toggle){
-////                    imgLikeMain.setImageResource(R.drawable.img_liked);
-////                }else {
-////                    imgLikeMain.setImageResource(R.drawable.img_like);
-////                }
-//            }
-//        });
-
+        imgShowBar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this , TestPopUpActivity.class);
+                startActivity(intent);
+            }
+        });
         imgSearchMain.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -74,7 +70,7 @@ public class MainActivity extends AppCompatActivity {
                 bundle.putSerializable("values", sample);
                 intent.putExtra("en", bundle);
                 startActivity(intent);
-                Toast.makeText(MainActivity.this, "click", Toast.LENGTH_LONG).show();
+
             }
         });
 
@@ -83,7 +79,7 @@ public class MainActivity extends AppCompatActivity {
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         recycMain.setLayoutManager(linearLayoutManager);
 
-        mAdapter = new MainAdapter();
+        mAdapter = new MainAdapter(this);
         recycMain.setAdapter(mAdapter);
         LoadApi();
 
@@ -146,16 +142,6 @@ public class MainActivity extends AppCompatActivity {
                             .replace(R.id.frameFragment, frag)
                             .commit();
                 }
-            }
-
-            @Override
-            public void onImgClick(int postion, View view) {
-                /*if (toggle) {
-                    imgLikeMain.setImageResource(R.drawable.img_liked);
-                } else {
-                    imgLikeMain.setImageResource(R.drawable.img_like);
-                }
-                Toast.makeText(MainActivity.this, "clicked", Toast.LENGTH_SHORT).show();*/
             }
 
         });
