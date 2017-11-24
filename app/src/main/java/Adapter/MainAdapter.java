@@ -3,6 +3,7 @@ package Adapter;
 import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -36,7 +37,9 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.ViewHolder> {
     SharedPreferences sharedpreferences;
     String responseMessage, responseCode;
     Context context;
-    private static ClickListener clickListener;
+    private ClickListener clickListener;
+    private OnClickProductItem sendBundle;
+
 
 //    public MainAdapter(List<MainItems> itemses){
 //        list = itemses;
@@ -55,7 +58,9 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.ViewHolder> {
         //if null listFavorite when create new app , clare SharedReference
         for ( ChannelFavorite ss : listFavorite) {
             if(ss.isFavorite == true){
-                Log.d("rrrrrrrrr" , "values: " + ss.getChannelId());
+                Bundle bundle =  new Bundle();
+                bundle.putString("favoriteChannelId" , ss.getChannelId().toString());
+
             }
 
         }
@@ -170,7 +175,7 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.ViewHolder> {
     }
 
     public void setOnItemClickListener(ClickListener clickListener) {
-        MainAdapter.clickListener = clickListener;
+        this.clickListener = clickListener;
     }
 
     private int indexInListFavorite(String channelId) {
@@ -186,6 +191,10 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.ViewHolder> {
         void onItemClick(int position, View view);
 
     }
+    public interface OnClickProductItem {
+        void onClickProductItem(Bundle bundle);
+    }
+
 
 
 }

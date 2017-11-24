@@ -10,6 +10,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
@@ -18,6 +19,8 @@ import android.widget.Toast;
 import com.example.astro.astrotechnology.fragments.DetailChannelFragment;
 
 import Adapter.MainAdapter;
+import Model.ChannelFavorite;
+import Model.ChannelFavoriteBundle;
 import Model.ChannelItems;
 import Model.MainItems;
 import Model.Sample;
@@ -52,14 +55,22 @@ public class MainActivity extends AppCompatActivity {
         imgShowBar = (ImageView) findViewById(R.id.imgShowBar);
 
         sharedpreferences = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
-
+        // load channel favorite
         imgShowBar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this , TestPopUpActivity.class);
+                Bundle bundle = new Bundle();
+
+                ChannelFavoriteBundle channelFavoriteBundle = new ChannelFavoriteBundle();
+                channelFavoriteBundle.list = mAdapter.listFavorite;
+
+                bundle.putSerializable("theListFavorite" , channelFavoriteBundle);
+                intent.putExtra("listFavorite", bundle);
                 startActivity(intent);
             }
         });
+        // to search channel
         imgSearchMain.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -82,6 +93,13 @@ public class MainActivity extends AppCompatActivity {
         mAdapter = new MainAdapter(this);
         recycMain.setAdapter(mAdapter);
         LoadApi();
+
+        mAdapter.listFavorite.toString();
+
+
+
+
+
 
     }
 

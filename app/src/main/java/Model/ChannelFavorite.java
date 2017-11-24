@@ -1,10 +1,12 @@
 package Model;
 
+import java.io.Serializable;
+
 /**
  * Created by vitinhHienAnh on 19-11-17.
  */
 
-public class ChannelFavorite {
+public class ChannelFavorite implements Serializable {
 
     public String channelId;
     public boolean isFavorite;
