@@ -20,7 +20,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".SearchChannelActivity"/>
-        <activity android:name=".TestPopUpActivity"/>
+        <activity android:name=".FavoriteActivity"/>
     </application>
 
 </manifest>

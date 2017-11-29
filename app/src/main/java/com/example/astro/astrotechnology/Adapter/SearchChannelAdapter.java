@@ -1,4 +1,4 @@
-package Adapter;
+package com.example.astro.astrotechnology.Adapter;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;

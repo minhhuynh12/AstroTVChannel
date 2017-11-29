@@ -35,5 +35,8 @@ public class ChannelItems implements Serializable{
         this.channelStbNumber = channelStbNumber;
     }
 
-
+    public ChannelItems(String channelId, String channelTitle) {
+        this.channelId = channelId;
+        this.channelTitle = channelTitle;
+    }
 }

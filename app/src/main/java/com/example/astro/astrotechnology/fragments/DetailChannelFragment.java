@@ -5,7 +5,6 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,20 +12,16 @@ import android.view.ViewGroup;
 import com.example.astro.astrotechnology.R;
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.List;
 
-import Adapter.DetailChannelAdapter;
+import com.example.astro.astrotechnology.Adapter.DetailChannelAdapter;
 import Model.DetailChannelItems;
-import Model.GetEventItems;
 import Remote.MainService;
 import Remote.MainUtils;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import retrofit2.Retrofit;
 
 /**
  * Created by imac on 11/9/17.

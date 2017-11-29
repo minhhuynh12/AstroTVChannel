@@ -1,4 +1,4 @@
-package Adapter;
+package com.example.astro.astrotechnology.Adapter;
 
 import android.app.Activity;
 import android.content.Context;

@@ -10,16 +10,13 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 import com.example.astro.astrotechnology.fragments.DetailChannelFragment;
 
-import Adapter.MainAdapter;
-import Model.ChannelFavorite;
+import com.example.astro.astrotechnology.Adapter.MainAdapter;
 import Model.ChannelFavoriteBundle;
 import Model.ChannelItems;
 import Model.MainItems;
@@ -59,14 +56,14 @@ public class MainActivity extends AppCompatActivity {
         imgShowBar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this , TestPopUpActivity.class);
-                Bundle bundle = new Bundle();
+
+//                Bundle bundle = new Bundle();
 
                 ChannelFavoriteBundle channelFavoriteBundle = new ChannelFavoriteBundle();
                 channelFavoriteBundle.list = mAdapter.listFavorite;
-
-                bundle.putSerializable("theListFavorite" , channelFavoriteBundle);
-                intent.putExtra("listFavorite", bundle);
+                Intent intent = new Intent(MainActivity.this , FavoriteActivity.class);
+//                bundle.putSerializable("theListFavorite" , channelFavoriteBundle);
+                intent.putExtra("listFavorite", channelFavoriteBundle);
                 startActivity(intent);
             }
         });
