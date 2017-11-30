@@ -39,7 +39,7 @@ public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.ViewHo
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         holder.tvChannelIdFavorite.setText(list.get(position).getChannelId());
-        holder.tvChannelIdFavorite.setText(list.get(position).getChannelTitle());
+        holder.tvTitlleChannelFavorite.setText(list.get(position).getChannelTitle());
     }
 
     @Override

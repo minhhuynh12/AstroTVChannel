@@ -102,11 +102,11 @@ public class FavoriteActivity extends AppCompatActivity {
                     for ( ChannelFavorite data2 : listFavorited ) {
                         Log.d("ppppp" , "list: " + data2.getChannelId());
 
-                        if(data1.getChannelId() == data2.getChannelId()){
+                        if(data1.getChannelId().equals(data2.getChannelId())){
                             found = true;
                         }
                     }
-                    if(!found){
+                    if(found){
                         results.add(new ChannelItems(data1.getChannelId() , data1.getChannelTitle()));
                         mAdapter.setdata(results);
                     }

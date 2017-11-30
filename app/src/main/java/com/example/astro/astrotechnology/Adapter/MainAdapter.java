@@ -55,6 +55,10 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.ViewHolder> {
         Gson gson = new Gson();
         String json = sharedpreferences.getString("ChannelID", "");
         listFavorite = gson.fromJson(json, new TypeToken<ArrayList<ChannelFavorite>>() {}.getType());
+        if (listFavorite == null) {
+            listFavorite = new ArrayList<>();
+        }
+
         //if null listFavorite when create new app , clare SharedReference
         for ( ChannelFavorite ss : listFavorite) {
             if(ss.isFavorite == true){
@@ -65,9 +69,7 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.ViewHolder> {
 
         }
 
-        if (listFavorite == null) {
-            listFavorite = new ArrayList<>();
-        }
+
 
 
     }
