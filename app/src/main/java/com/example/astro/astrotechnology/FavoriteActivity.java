@@ -7,6 +7,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.View;
+import android.widget.TextView;
 
 import com.example.astro.astrotechnology.Adapter.FavoriteAdapter;
 
@@ -32,6 +34,7 @@ public class FavoriteActivity extends AppCompatActivity {
     private ChannelFavoriteBundle channelFavoriteBundle;
     FavoriteAdapter mAdapter;
     MainService mService;
+    TextView tvNothingFavorite;
     RecyclerView recycFavorite;
     ArrayList<ChannelItems> results = new ArrayList<>();
 
@@ -43,6 +46,7 @@ public class FavoriteActivity extends AppCompatActivity {
         setContentView(R.layout.activity_favorite);
         context = this;
         recycFavorite = (RecyclerView) findViewById(R.id.recycFavorite);
+        tvNothingFavorite = (TextView) findViewById(R.id.tvNothingFavorite);
 
 //        AlertDialog.Builder builder1 = new AlertDialog.Builder(context);
 //        builder1.setMessage("Write your message here.");
@@ -71,23 +75,21 @@ public class FavoriteActivity extends AppCompatActivity {
 //        final Bundle bundle = intent.getBundleExtra("listFavorite");
 
         channelFavoriteBundle = (ChannelFavoriteBundle) getIntent().getSerializableExtra("listFavorite");
+        if(channelFavoriteBundle.list.size() > 0){
+            recycFavorite.setVisibility(View.VISIBLE);
+            tvNothingFavorite.setVisibility(View.GONE);
+            LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
+            linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
 
-        for (ChannelFavorite data : channelFavoriteBundle.list) {
+            mAdapter = new FavoriteAdapter();
+            recycFavorite.setLayoutManager(linearLayoutManager);
+            recycFavorite.setAdapter(mAdapter);
 
-            Log.d("lllllll", "list: " + data.getChannelId());
+            loadApi(channelFavoriteBundle.list);
+        }else {
+            recycFavorite.setVisibility(View.GONE);
+            tvNothingFavorite.setVisibility(View.VISIBLE);
         }
-        //Log.d("ppppp" , "list: " + values);
-
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
-        linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
-
-        mAdapter = new FavoriteAdapter();
-        recycFavorite.setLayoutManager(linearLayoutManager);
-        recycFavorite.setAdapter(mAdapter);
-
-        loadApi(channelFavoriteBundle.list);
-
-
     }
 
     private void loadApi(final List<ChannelFavorite> listFavorited) {
