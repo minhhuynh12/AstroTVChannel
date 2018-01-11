@@ -163,6 +163,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    
 /*
     manager = getSupportFragmentManager();
                     manager.beginTransaction()
@@ -170,5 +171,6 @@ public class MainActivity extends AppCompatActivity {
                             .replace(R.id.frameFragment, frag)
                             .commit();
  */
+
 
 }
