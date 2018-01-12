@@ -163,7 +163,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    
+
 /*
     manager = getSupportFragmentManager();
                     manager.beginTransaction()

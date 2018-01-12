@@ -61,4 +61,6 @@ public class SearchChannelAdapter extends RecyclerView.Adapter<SearchChannelAdap
             tvEventDescription = itemView.findViewById(R.id.tvEventDescription);
         }
     }
+
+
 }

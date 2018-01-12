@@ -13,4 +13,10 @@ public class MyApplication extends Application {
         super.onCreate();
         Stetho.initializeWithDefaults(this);
     }
+    /*
+    conflict
+    mmmmmmmmmmmmm
+     */
+
+
 }
