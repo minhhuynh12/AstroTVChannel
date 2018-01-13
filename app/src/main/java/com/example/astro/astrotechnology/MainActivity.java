@@ -92,12 +92,6 @@ public class MainActivity extends AppCompatActivity {
         LoadApi();
 
         mAdapter.listFavorite.toString();
-
-
-
-
-
-
     }
 
     @Override
