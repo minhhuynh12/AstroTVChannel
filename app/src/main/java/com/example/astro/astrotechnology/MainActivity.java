@@ -162,4 +162,15 @@ public class MainActivity extends AppCompatActivity {
         });
 
     }
+
+    
+/*
+    manager = getSupportFragmentManager();
+                    manager.beginTransaction()
+                            .addToBackStack(BACK_STACK_ROOT_TAG)
+                            .replace(R.id.frameFragment, frag)
+                            .commit();
+ */
+
+
 }
