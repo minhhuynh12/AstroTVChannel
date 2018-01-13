@@ -38,8 +38,6 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.ViewHolder> {
     String responseMessage, responseCode;
     Context context;
     private ClickListener clickListener;
-    private OnClickProductItem sendBundle;
-
 
 //    public MainAdapter(List<MainItems> itemses){
 //        list = itemses;
@@ -47,31 +45,24 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.ViewHolder> {
 
     public MainAdapter(Activity activity) {
         list = new ArrayList<>();
-
-
         //get shared Preference
         sharedpreferences = activity.getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
 
         Gson gson = new Gson();
         String json = sharedpreferences.getString("ChannelID", "");
-        listFavorite = gson.fromJson(json, new TypeToken<ArrayList<ChannelFavorite>>() {}.getType());
+        listFavorite = gson.fromJson(json, new TypeToken<ArrayList<ChannelFavorite>>() {
+        }.getType());
         if (listFavorite == null) {
             listFavorite = new ArrayList<>();
         }
 
         //if null listFavorite when create new app , clare SharedReference
-        for ( ChannelFavorite ss : listFavorite) {
-            if(ss.isFavorite == true){
-                Bundle bundle =  new Bundle();
-                bundle.putString("favoriteChannelId" , ss.getChannelId().toString());
-
+        for (ChannelFavorite ss : listFavorite) {
+            if (ss.isFavorite == true) {
+                Bundle bundle = new Bundle();
+                bundle.putString("favoriteChannelId", ss.getChannelId().toString());
             }
-
         }
-
-
-
-
     }
 
     public void setData(List<ChannelItems> list) {
@@ -106,7 +97,6 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.ViewHolder> {
         ChannelFavorite channelFavorite = new ChannelFavorite(item.getChannelId());
 
         for (ChannelFavorite channelFavorite_ : listFavorite) {
-            Log.d("bbbbbb", "value: " + listFavorite);
             if (channelFavorite_.channelId.equals(item.getChannelId()) == true) {
                 channelFavorite = channelFavorite_;
                 break;
@@ -123,16 +113,13 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.ViewHolder> {
         holder.imgLikeMain.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 int index = indexInListFavorite(item.getChannelId());
-                Log.d("aaaaaaa", "value: " + index);
                 if (index > -1) {
                     listFavorite.get(index).isFavorite = !listFavorite.get(index).isFavorite;
                 } else {
                     ChannelFavorite favorite = new ChannelFavorite(item.getChannelId());
                     favorite.isFavorite = true;
                     listFavorite.add(favorite);
-
                 }
                 // save to shared preference
                 Gson gson = new Gson();
@@ -141,14 +128,9 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.ViewHolder> {
                 SharedPreferences.Editor editor = sharedpreferences.edit();
                 editor.putString(ChannelID, json);
                 editor.commit();
-
-
                 notifyItemChanged(position);
-
             }
         });
-
-        //holder.tvChannelNumberMain.setText(responseCodeRecyc);
     }
 
     @Override
@@ -166,13 +148,10 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.ViewHolder> {
             tvchannelIdMain = itemView.findViewById(R.id.tvchannelIdMain);
             tvChannelTitleMain = itemView.findViewById(R.id.tvChannelTitleMain);
             imgLikeMain = itemView.findViewById(R.id.imgLikeMain);
-
         }
-
         @Override
         public void onClick(View v) {
             clickListener.onItemClick(getAdapterPosition(), v);
-
         }
     }
 
@@ -191,12 +170,5 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.ViewHolder> {
 
     public interface ClickListener {
         void onItemClick(int position, View view);
-
     }
-    public interface OnClickProductItem {
-        void onClickProductItem(Bundle bundle);
-    }
-
-
-
 }
