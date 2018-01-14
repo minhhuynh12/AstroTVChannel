@@ -17,6 +17,7 @@ import android.widget.ImageView;
 import com.example.astro.astrotechnology.fragments.DetailChannelFragment;
 
 import com.example.astro.astrotechnology.Adapter.MainAdapter;
+
 import Model.ChannelFavoriteBundle;
 import Model.ChannelItems;
 import Model.MainItems;
@@ -29,7 +30,7 @@ import retrofit2.Response;
 
 public class MainActivity extends AppCompatActivity {
     RecyclerView recycMain;
-    ImageView imgSearchMain, imgLikeMain , imgShowBar;
+    ImageView imgSearchMain, imgLikeMain, imgShowBar;
     FrameLayout frameFragment;
     MainAdapter mAdapter;
     MainService mService;
@@ -61,7 +62,7 @@ public class MainActivity extends AppCompatActivity {
 
                 ChannelFavoriteBundle channelFavoriteBundle = new ChannelFavoriteBundle();
                 channelFavoriteBundle.list = mAdapter.listFavorite;
-                Intent intent = new Intent(MainActivity.this , FavoriteActivity.class);
+                Intent intent = new Intent(MainActivity.this, FavoriteActivity.class);
 //                bundle.putSerializable("theListFavorite" , channelFavoriteBundle);
                 intent.putExtra("listFavorite", channelFavoriteBundle);
                 startActivity(intent);
@@ -93,9 +94,13 @@ public class MainActivity extends AppCompatActivity {
 
         mAdapter.listFavorite.toString();
 
+        /*
+        conflict
+            LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
+            linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+            recycMain.setLayoutManager(linearLayoutManager);
 
-
-
+         */
 
 
     }
