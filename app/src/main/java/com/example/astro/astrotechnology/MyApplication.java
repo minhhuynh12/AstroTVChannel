@@ -15,7 +15,7 @@ public class MyApplication extends Application {
     }
     /*
     conflict
-    mmmmmmmmmmmmm
+    super.onCreate();
      */
 
 
