@@ -94,15 +94,6 @@ public class MainActivity extends AppCompatActivity {
 
         mAdapter.listFavorite.toString();
 
-        /*
-        conflict
-            LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
-            linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
-            recycMain.setLayoutManager(linearLayoutManager);
-
-         */
-
-
     }
 
     @Override

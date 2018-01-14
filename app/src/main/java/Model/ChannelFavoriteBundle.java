@@ -19,7 +19,7 @@ public class ChannelFavoriteBundle implements Serializable {
         this.list = list;
     }
 
-//    public boolean isFavorite;
+    public boolean isFavorite;
 
     public String getChannelId() {
         return channelId;
