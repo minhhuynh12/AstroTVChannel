@@ -17,6 +17,7 @@ import android.widget.ImageView;
 import com.example.astro.astrotechnology.fragments.DetailChannelFragment;
 
 import com.example.astro.astrotechnology.Adapter.MainAdapter;
+
 import Model.ChannelFavoriteBundle;
 import Model.ChannelItems;
 import Model.MainItems;
@@ -29,7 +30,7 @@ import retrofit2.Response;
 
 public class MainActivity extends AppCompatActivity {
     RecyclerView recycMain;
-    ImageView imgSearchMain, imgLikeMain , imgShowBar;
+    ImageView imgSearchMain, imgLikeMain, imgShowBar;
     FrameLayout frameFragment;
     MainAdapter mAdapter;
     MainService mService;
@@ -59,12 +60,17 @@ public class MainActivity extends AppCompatActivity {
 
 //                Bundle bundle = new Bundle();
 
-                ChannelFavoriteBundle channelFavoriteBundle = new ChannelFavoriteBundle();
-                channelFavoriteBundle.list = mAdapter.listFavorite;
-                Intent intent = new Intent(MainActivity.this , FavoriteActivity.class);
-//                bundle.putSerializable("theListFavorite" , channelFavoriteBundle);
-                intent.putExtra("listFavorite", channelFavoriteBundle);
+//                ChannelFavoriteBundle channelFavoriteBundle = new ChannelFavoriteBundle();
+//                channelFavoriteBundle.list = mAdapter.listFavorite;
+//                Intent intent = new Intent(MainActivity.this, FavoriteActivity.class);
+////                bundle.putSerializable("theListFavorite" , channelFavoriteBundle);
+//                intent.putExtra("listFavorite", channelFavoriteBundle);
+//                startActivity(intent);
+
+                Intent intent = new Intent(MainActivity.this , ListViewTestActivity.class);
                 startActivity(intent);
+
+
             }
         });
         // to search channel
@@ -92,6 +98,7 @@ public class MainActivity extends AppCompatActivity {
         LoadApi();
 
         mAdapter.listFavorite.toString();
+
     }
 
     @Override
@@ -112,7 +119,7 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<MainItems> call, Throwable t) {
-
+//                t.getMessage()
             }
         });
 
@@ -164,6 +171,7 @@ public class MainActivity extends AppCompatActivity {
                             .addToBackStack(BACK_STACK_ROOT_TAG)
                             .replace(R.id.frameFragment, frag)
                             .commit();
+                            
  */
 
 

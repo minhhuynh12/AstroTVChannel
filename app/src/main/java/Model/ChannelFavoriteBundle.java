@@ -28,4 +28,7 @@ public class ChannelFavoriteBundle implements Serializable {
     public void setChannelId(String channelId) {
         this.channelId = channelId;
     }
+
+
+
 }

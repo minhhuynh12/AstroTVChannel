@@ -77,6 +77,7 @@ public class FavoriteActivity extends AppCompatActivity {
 
         channelFavoriteBundle = (ChannelFavoriteBundle) getIntent().getSerializableExtra("listFavorite");
 
+//<<<<<<< HEAD
 
         if (channelFavoriteBundle.list.size() > 0) {
             recycFavorite.setVisibility(View.VISIBLE);
@@ -94,8 +95,33 @@ public class FavoriteActivity extends AppCompatActivity {
         } else {
             recycFavorite.setVisibility(View.GONE);
             tvNothingFavorite.setVisibility(View.VISIBLE);
+//=======
+//        for (int i = 0; i < channelFavoriteBundle.list.size(); i++){
+//            if(channelFavoriteBundle.list.get(i).isFavorite == true){
+//                if(channelFavoriteBundle.list.size() > 0){
+//                    recycFavorite.setVisibility(View.VISIBLE);
+//                    tvNothingFavorite.setVisibility(View.GONE);
+//                    LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
+//                    linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+//
+//                    mAdapter = new FavoriteAdapter();
+//                    recycFavorite.setLayoutManager(linearLayoutManager);
+//                    recycFavorite.setAdapter(mAdapter);
+//
+//                    loadApi(channelFavoriteBundle.list);
+//                }
+//            }
+////            else {
+////                recycFavorite.setVisibility(View.GONE);
+////                tvNothingFavorite.setVisibility(View.VISIBLE);
+////            }
+//            }
+//>>>>>>> dev
         }
-    }
+        }
+
+
+
 
 
     private void loadApi(final List<ChannelFavorite> listFavorited) {
@@ -105,30 +131,28 @@ public class FavoriteActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<MainItems> call, Response<MainItems> response) {
 
-                for (ChannelItems data1 : response.body().getChannels()) {
+                results = new ArrayList<>();
+                for ( ChannelItems data1  : response.body().getChannels() ) {
                     boolean found = false;
-                    for (ChannelFavorite data2 : listFavorited) {
-                        if (data1.getChannelId().equals(data2.getChannelId()) && data2.isFavorite == true) {
-                            found = true;
+                    for ( ChannelFavorite data2 : listFavorited ) {
+                        Log.d("ppppp" , "list: " + data2.getChannelId());
+
+                        if(data2.isFavorite == true && data1.getChannelId().equals(data2.getChannelId())){
+                            results.add(new ChannelItems(data1.getChannelId() , data1.getChannelTitle()));
                         }
 
-//                        for(int i = 0 ; i < data2.getChannelId().length() ; i++){
-//                            if(data2.isFavorite[i] == false){
-//                                recycFavorite.setVisibility(View.GONE);
-//                                tvNothingFavorite.setVisibility(View.VISIBLE);
-//                            }
+//                        if(data1.getChannelId().equals(data2.getChannelId())){
+//                            found = true;
 //                        }
-
-
                     }
-                    if (found && channelFavoriteBundle.list.size() > 0) {
-                        results.add(new ChannelItems(data1.getChannelId(), data1.getChannelTitle()));
-                        mAdapter.setdata(results);
-                    }else if(!found){
-                        recycFavorite.setVisibility(View.GONE);
-                        tvNothingFavorite.setVisibility(View.VISIBLE);
-                    }
+//                    if(found){
+//
+//
+//                    }
                 }
+
+                mAdapter.setdata(results);
+
             }
 
             @Override
