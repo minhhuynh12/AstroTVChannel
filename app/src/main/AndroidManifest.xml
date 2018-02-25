@@ -21,6 +21,7 @@
         </activity>
         <activity android:name=".SearchChannelActivity"/>
         <activity android:name=".FavoriteActivity"/>
+        <activity android:name=".ListViewTestActivity"/>
     </application>
 
 </manifest>

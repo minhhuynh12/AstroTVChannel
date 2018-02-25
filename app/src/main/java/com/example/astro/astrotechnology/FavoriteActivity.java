@@ -75,22 +75,31 @@ public class FavoriteActivity extends AppCompatActivity {
 //        final Bundle bundle = intent.getBundleExtra("listFavorite");
 
         channelFavoriteBundle = (ChannelFavoriteBundle) getIntent().getSerializableExtra("listFavorite");
-        if(channelFavoriteBundle.list.size() > 0){
-            recycFavorite.setVisibility(View.VISIBLE);
-            tvNothingFavorite.setVisibility(View.GONE);
-            LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
-            linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
 
-            mAdapter = new FavoriteAdapter();
-            recycFavorite.setLayoutManager(linearLayoutManager);
-            recycFavorite.setAdapter(mAdapter);
+        for (int i = 0; i < channelFavoriteBundle.list.size(); i++){
+            if(channelFavoriteBundle.list.get(i).isFavorite == true){
+                if(channelFavoriteBundle.list.size() > 0){
+                    recycFavorite.setVisibility(View.VISIBLE);
+                    tvNothingFavorite.setVisibility(View.GONE);
+                    LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
+                    linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
 
-            loadApi(channelFavoriteBundle.list);
-        }else {
-            recycFavorite.setVisibility(View.GONE);
-            tvNothingFavorite.setVisibility(View.VISIBLE);
+                    mAdapter = new FavoriteAdapter();
+                    recycFavorite.setLayoutManager(linearLayoutManager);
+                    recycFavorite.setAdapter(mAdapter);
+
+                    loadApi(channelFavoriteBundle.list);
+                }
+            }
+//            else {
+//                recycFavorite.setVisibility(View.GONE);
+//                tvNothingFavorite.setVisibility(View.VISIBLE);
+//            }
+            }
         }
-    }
+
+
+
 
     private void loadApi(final List<ChannelFavorite> listFavorited) {
 
@@ -98,21 +107,28 @@ public class FavoriteActivity extends AppCompatActivity {
         mService.getMainListChannel().enqueue(new Callback<MainItems>() {
             @Override
             public void onResponse(Call<MainItems> call, Response<MainItems> response) {
-
+                results = new ArrayList<>();
                 for ( ChannelItems data1  : response.body().getChannels() ) {
                     boolean found = false;
                     for ( ChannelFavorite data2 : listFavorited ) {
                         Log.d("ppppp" , "list: " + data2.getChannelId());
 
-                        if(data1.getChannelId().equals(data2.getChannelId())){
-                            found = true;
+                        if(data2.isFavorite == true && data1.getChannelId().equals(data2.getChannelId())){
+                            results.add(new ChannelItems(data1.getChannelId() , data1.getChannelTitle()));
                         }
+
+//                        if(data1.getChannelId().equals(data2.getChannelId())){
+//                            found = true;
+//                        }
                     }
-                    if(found){
-                        results.add(new ChannelItems(data1.getChannelId() , data1.getChannelTitle()));
-                        mAdapter.setdata(results);
-                    }
+//                    if(found){
+//
+//
+//                    }
                 }
+
+                mAdapter.setdata(results);
+
             }
 
             @Override

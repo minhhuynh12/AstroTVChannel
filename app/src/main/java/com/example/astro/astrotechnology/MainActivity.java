@@ -60,12 +60,17 @@ public class MainActivity extends AppCompatActivity {
 
 //                Bundle bundle = new Bundle();
 
-                ChannelFavoriteBundle channelFavoriteBundle = new ChannelFavoriteBundle();
-                channelFavoriteBundle.list = mAdapter.listFavorite;
-                Intent intent = new Intent(MainActivity.this, FavoriteActivity.class);
-//                bundle.putSerializable("theListFavorite" , channelFavoriteBundle);
-                intent.putExtra("listFavorite", channelFavoriteBundle);
+//                ChannelFavoriteBundle channelFavoriteBundle = new ChannelFavoriteBundle();
+//                channelFavoriteBundle.list = mAdapter.listFavorite;
+//                Intent intent = new Intent(MainActivity.this, FavoriteActivity.class);
+////                bundle.putSerializable("theListFavorite" , channelFavoriteBundle);
+//                intent.putExtra("listFavorite", channelFavoriteBundle);
+//                startActivity(intent);
+
+                Intent intent = new Intent(MainActivity.this , ListViewTestActivity.class);
                 startActivity(intent);
+
+
             }
         });
         // to search channel
@@ -123,7 +128,7 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<MainItems> call, Throwable t) {
-
+//                t.getMessage()
             }
         });
 
