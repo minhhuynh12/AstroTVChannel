@@ -15,7 +15,8 @@ public class MyApplication extends Application {
     }
     /*
     conflict
-    super.onCreate();
+    Stetho.initializeWithDefaults(this);
+
      */
 
 
