@@ -17,6 +17,7 @@ import android.widget.ImageView;
 import com.example.astro.astrotechnology.fragments.DetailChannelFragment;
 
 import com.example.astro.astrotechnology.Adapter.MainAdapter;
+import com.example.astro.astrotechnology.fragments.FirstFragment;
 
 import Model.ChannelFavoriteBundle;
 import Model.ChannelItems;
@@ -51,6 +52,7 @@ public class MainActivity extends AppCompatActivity {
         imgSearchMain = (ImageView) findViewById(R.id.imgSearchMain);
         imgLikeMain = (ImageView) findViewById(R.id.imgLikeMain);
         imgShowBar = (ImageView) findViewById(R.id.imgShowBar);
+
 
         sharedpreferences = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
         // load channel favorite
@@ -101,11 +103,20 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+
+
+
     @Override
     public void onBackPressed() {
+        int current = getSupportFragmentManager().getBackStackEntryCount();
+         String currentFragment = getSupportFragmentManager().getBackStackEntryAt(current).getName();
+         if(currentFragment.equals("")){
+             super.onBackPressed();
+         }
+
         super.onBackPressed();
-        frameFragment.setVisibility(View.GONE);
-        recycMain.setVisibility(View.VISIBLE);
+//        frameFragment.setVisibility(View.GONE);
+//        recycMain.setVisibility(View.VISIBLE);
     }
 
     //get all channel
@@ -119,7 +130,7 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<MainItems> call, Throwable t) {
-//                t.getMessage()
+                t.getMessage();
             }
         });
 
@@ -128,6 +139,7 @@ public class MainActivity extends AppCompatActivity {
             public void onItemClick(int position, View view) {
                 recycMain.setVisibility(view.GONE);
                 frameFragment.setVisibility(view.VISIBLE);
+                addFragment(R.id.frameFragment, FirstFragment.newInstance());
 
 //                imgLikeMain.setOnClickListener(new View.OnClickListener() {
 //                    @Override
@@ -140,7 +152,7 @@ public class MainActivity extends AppCompatActivity {
 //                        Toast.makeText(MainActivity.this, "clicked", Toast.LENGTH_SHORT).show();
 //                    }
 //                });
-
+                /*
                 ChannelItems item = mAdapter.getData(position);
                 Bundle bundle = new Bundle();
                 bundle.putString("channelId", item.getChannelId());
@@ -157,7 +169,10 @@ public class MainActivity extends AppCompatActivity {
                             .addToBackStack(BACK_STACK_ROOT_TAG)
                             .replace(R.id.frameFragment, frag)
                             .commit();
+
+
                 }
+                */
             }
 
         });
@@ -173,6 +188,14 @@ public class MainActivity extends AppCompatActivity {
                             .commit();
                             
  */
+
+    public void addFragment(int viewId, Fragment fragment) {
+        getSupportFragmentManager()
+                .beginTransaction()
+                .add(viewId, fragment)
+                .addToBackStack("")
+                .commit();
+    }
 
 
 }
